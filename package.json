@@ -19,5 +19,8 @@
         "postcss": "^8.1.14",
         "postcss-import": "^14.0.1",
         "tailwindcss": "^3.0.0"
+    },
+    "dependencies": {
+        "@alpinejs/focus": "^3.9.0"
     }
 }
