@@ -28,7 +28,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return BooksResource::collection(User::find(Auth::id())->books()->paginate(10));
+        // return BooksResource::collection(User::find(Auth::id())->books()->paginate(10));
+        return view('books.index');
     }
 
     /**

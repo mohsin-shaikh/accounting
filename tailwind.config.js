@@ -15,12 +15,12 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
-        },
-        colors: {
-            danger: colors.rose,
-            primary: colors.blue,
-            success: colors.green,
-            warning: colors.yellow,
+            colors: {
+                danger: colors.rose,
+                primary: colors.blue,
+                success: colors.green,
+                warning: colors.yellow,
+            },
         },
     },
 
