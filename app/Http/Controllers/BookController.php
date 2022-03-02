@@ -18,7 +18,7 @@ class BookController extends Controller
         $this->middleware(function ($request, $next) {
             $this->authorize('owner', $request->book);
             return $next($request);
-        }, ['except' => ['index', 'store']]);
+        }, ['except' => ['index', 'store', 'create']]);
     }
 
     /**
@@ -39,7 +39,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        // Not Used
+        return view('books.create');
     }
 
     /**
