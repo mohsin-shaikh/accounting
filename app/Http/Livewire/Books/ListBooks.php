@@ -9,7 +9,10 @@ use Filament\Tables;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\LinkAction;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class ListBooks extends Component implements Tables\Contracts\HasTable
 {
@@ -35,9 +38,28 @@ class ListBooks extends Component implements Tables\Contracts\HasTable
         ];
     }
 
-    protected function getTableRecordUrlUsing(): Closure
+    // Clickable Table Row
+    // protected function getTableRecordUrlUsing(): Closure
+    // {
+    //     return fn (Model $record): string => route('books.edit', ['book' => $record]);
+    // }
+
+    protected function getTableActions(): array
     {
-        return fn (Model $record): string => route('books.edit', ['book' => $record]);
+        return [
+            LinkAction::make('edit')
+                ->url(fn (Book $record): string => route('books.edit', $record))
+        ];
+    }
+
+    protected function getTableBulkActions(): array
+    {
+        return [
+            BulkAction::make('delete')
+                ->action(fn (Collection $records) => $records->each->delete())
+                ->deselectRecordsAfterCompletion()
+                ->color('danger')
+        ];
     }
 
     public function isTableSearchable(): bool
