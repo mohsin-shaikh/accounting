@@ -59,6 +59,8 @@ class ListBooks extends Component implements Tables\Contracts\HasTable
                 ->action(fn (Collection $records) => $records->each->delete())
                 ->deselectRecordsAfterCompletion()
                 ->color('danger')
+                ->icon('heroicon-o-trash')
+                ->requiresConfirmation(),
         ];
     }
 
