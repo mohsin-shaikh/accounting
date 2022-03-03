@@ -23,10 +23,23 @@ class CreateBook extends Component implements Forms\Contracts\HasForms
     protected function getFormSchema(): array
     {
         return [
-            Forms\Components\Card::make()
+            Forms\Components\Grid::make([
+                'default' => 1,
+                'sm' => 2,
+                'md' => 3,
+                'lg' => 4,
+                'xl' => 6,
+                '2xl' => 8,
+            ])
                 ->schema([
-                    Forms\Components\TextInput::make('name')->required()
-                ])
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->columnSpan([
+                            'sm' => 2,
+                            'xl' => 3,
+                            '2xl' => 4,
+                        ]),
+            ]),
         ];
     }
 
