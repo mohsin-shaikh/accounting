@@ -35,14 +35,16 @@ class ListBooks extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Columns\TextColumn::make('name'),
             Tables\Columns\TextColumn::make('user.name'),
+            Tables\Columns\TextColumn::make('created_at')->dateTime(),
+            Tables\Columns\TextColumn::make('updated_at')->dateTime(),
         ];
     }
 
     // Clickable Table Row
-    // protected function getTableRecordUrlUsing(): Closure
-    // {
-    //     return fn (Model $record): string => route('books.edit', ['book' => $record]);
-    // }
+    protected function getTableRecordUrlUsing(): Closure
+    {
+        return fn (Model $record): string => route('books.edit', ['book' => $record]);
+    }
 
     protected function getTableActions(): array
     {
