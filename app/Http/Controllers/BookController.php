@@ -74,7 +74,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        // Not Used
+        return view('books.edit', compact('book'));
     }
 
     /**

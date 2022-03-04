@@ -2,22 +2,25 @@
 
 namespace App\Http\Livewire\Books;
 
-use App\Models\Book;
-use App\Models\User;
 use Filament\Forms;
+use App\Models\Book;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 
-class CreateBook extends Component implements Forms\Contracts\HasForms
+class EditBook extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
 
+    public Book $book;
+
     public $name;
 
-    public function mount(): void
+    public function mount($book): void
     {
-        $this->form->fill();
+        $this->book = $book;
+        $this->form->fill([
+            'name' => $this->book->name,
+        ]);
     }
 
     protected function getFormSchema(): array
@@ -42,15 +45,18 @@ class CreateBook extends Component implements Forms\Contracts\HasForms
         ];
     }
 
+    protected function getFormModel(): Book
+    {
+        return $this->book;
+    }
+
     public function submit(): void
     {
-        $book = new Book($this->form->getState());
-        User::find(Auth::id())->books()->save($book);
-        // Book::create($this->form->getState());
+        $this->book->update($this->form->getState());
     }
 
     public function render(): View
     {
-        return view('books.create-book');
+        return view('books.edit-book');
     }
 }
