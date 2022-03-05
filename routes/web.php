@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\CustomerController;
 
@@ -28,10 +27,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 // Middleware
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    // App
-    // Route::resource('/books', BookController::class);
-    // Route::resource('/books/{book}/customers', CustomerController::class);
-    // Route::resource('/books/{book}/customers/{customer}/entries', EntryController::class);
+    // Customers...
+    Route::resource('/customers', CustomerController::class, [
+        'except' => ['store', 'update', 'destroy']
+    ]);
+    // Entries...
+    Route::resource('/customers/{customer}/entries', EntryController::class, [
+        'except' => ['store', 'update', 'destroy']
+    ]);
 });
 
 require_once __DIR__ . '/jetstream.php';

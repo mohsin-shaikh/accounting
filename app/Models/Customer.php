@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Team;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $fillable = ['name', 'mobile', 'book_id'];
 
@@ -19,7 +21,7 @@ class Customer extends Model
 
     public function book(): BelongsTo
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(Team::class);
     }
 
     public function entries(): HasMany

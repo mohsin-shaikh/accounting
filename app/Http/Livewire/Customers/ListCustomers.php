@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Books;
+namespace App\Http\Livewire\Customers;
 
 use Closure;
-use Filament\Forms;
-use App\Models\Book;
+use App\Models\Customer;
 use Filament\Tables;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
@@ -14,7 +13,7 @@ use Filament\Tables\Actions\LinkAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class ListBooks extends Component implements Tables\Contracts\HasTable
+class ListCustomers extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
@@ -27,14 +26,14 @@ class ListBooks extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Book::query();
+        return Customer::query();
     }
 
     protected function getTableColumns(): array
     {
         return [
             Tables\Columns\TextColumn::make('name'),
-            Tables\Columns\TextColumn::make('user.name'),
+            Tables\Columns\TextColumn::make('mobile'),
             Tables\Columns\TextColumn::make('created_at')->dateTime(),
             Tables\Columns\TextColumn::make('updated_at')->dateTime(),
         ];
@@ -43,14 +42,14 @@ class ListBooks extends Component implements Tables\Contracts\HasTable
     // Clickable Table Row
     protected function getTableRecordUrlUsing(): Closure
     {
-        return fn (Model $record): string => route('books.edit', ['book' => $record]);
+        return fn (Model $record): string => route('customers.edit', ['customer' => $record]);
     }
 
     protected function getTableActions(): array
     {
         return [
             LinkAction::make('edit')
-                ->url(fn (Book $record): string => route('books.edit', $record))
+                ->url(fn (Customer $record): string => route('customers.edit', $record))
         ];
     }
 
@@ -74,7 +73,7 @@ class ListBooks extends Component implements Tables\Contracts\HasTable
     protected function applySearchToTableQuery(Builder $query): Builder
     {
         if (filled($searchQuery = $this->getTableSearchQuery())) {
-            $query->whereIn('id', Book::search($searchQuery)->keys());
+            $query->whereIn('id', Customer::search($searchQuery)->keys());
         }
 
         return $query;
@@ -82,6 +81,6 @@ class ListBooks extends Component implements Tables\Contracts\HasTable
 
     public function render(): View
     {
-        return view('books.list-books');
+        return view('customers.list-customers');
     }
 }

@@ -1,26 +1,21 @@
 <?php
 
-namespace App\Http\Livewire\Books;
+namespace App\Http\Livewire\Customers;
 
+use App\Models\Customer;
+use App\Models\User;
 use Filament\Forms;
-use App\Models\Book;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
-class EditBook extends Component implements Forms\Contracts\HasForms
+class CreateCustomer extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
 
-    public Book $book;
-
-    public $name;
-
-    public function mount($book): void
+    public function mount(): void
     {
-        $this->book = $book;
-        $this->form->fill([
-            'name' => $this->book->name,
-        ]);
+        $this->form->fill();
     }
 
     protected function getFormSchema(): array
@@ -41,22 +36,26 @@ class EditBook extends Component implements Forms\Contracts\HasForms
                         'xl' => 3,
                         '2xl' => 4,
                     ]),
+                Forms\Components\TextInput::make('mobile')
+                    ->required()
+                    ->columnSpan([
+                        'sm' => 2,
+                        'xl' => 3,
+                        '2xl' => 4,
+                    ]),
             ]),
         ];
     }
 
-    protected function getFormModel(): Book
-    {
-        return $this->book;
-    }
-
     public function submit(): void
     {
-        $this->book->update($this->form->getState());
+        $customer = new Customer($this->form->getState());
+        $customer->book_id = Auth::user()->currentTeam->id;
+        $customer->save();
     }
 
     public function render(): View
     {
-        return view('books.edit-book');
+        return view('customers.create-customer');
     }
 }

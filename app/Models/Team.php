@@ -7,6 +7,7 @@ use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Team extends JetstreamTeam
@@ -51,5 +52,13 @@ class Team extends JetstreamTeam
         static::creating(function ($team) {
             $team->uuid = Str::uuid();
         });
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function customers(): HasMany
+    {
+        return $this->hasMany(Customer::class);
     }
 }

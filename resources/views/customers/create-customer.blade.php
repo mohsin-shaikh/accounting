@@ -9,7 +9,7 @@
                 <x-jet-button>
                     {{ __('Create') }}
                 </x-jet-button>
-                <x-link-button-secondary href="{{ route('books.index') }}">
+                <x-link-button-secondary href="{{ route('customers.index') }}">
                     {{ __('Cancel') }}
                 </x-link-button-secondary>
             </div>

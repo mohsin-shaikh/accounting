@@ -18,7 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->bigInteger('mobile');
             $table->bigInteger('book_id')->unsigned()->index();
-            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreign('book_id')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
