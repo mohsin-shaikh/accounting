@@ -33,3 +33,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/books/{book}/customers', CustomerController::class);
     Route::resource('/books/{book}/customers/{customer}/entries', EntryController::class);
 });
+
+require_once __DIR__ . '/jetstream.php';

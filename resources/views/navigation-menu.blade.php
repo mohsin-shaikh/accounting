@@ -52,7 +52,7 @@
                                     </div>
 
                                     <!-- Team Settings -->
-                                    <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                    <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->uuid) }}">
                                         {{ __('Team Settings') }}
                                     </x-jet-dropdown-link>
 
@@ -70,7 +70,7 @@
                                     </div>
 
                                     @foreach (Auth::user()->allTeams() as $team)
-                                        <x-jet-switchable-team :team="$team" />
+                                        <x-switchable-team :team="$team" />
                                     @endforeach
                                 </div>
                             </x-slot>
@@ -202,7 +202,7 @@
                     </div>
 
                     <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
+                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->uuid) }}" :active="request()->routeIs('teams.show')">
                         {{ __('Team Settings') }}
                     </x-jet-responsive-nav-link>
 
@@ -220,7 +220,7 @@
                     </div>
 
                     @foreach (Auth::user()->allTeams() as $team)
-                        <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
+                        <x-switchable-team :team="$team" component="jet-responsive-nav-link" />
                     @endforeach
                 @endif
             </div>
