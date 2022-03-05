@@ -29,9 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 // Middleware
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // App
-    Route::resource('/books', BookController::class);
-    Route::resource('/books/{book}/customers', CustomerController::class);
-    Route::resource('/books/{book}/customers/{customer}/entries', EntryController::class);
+    // Route::resource('/books', BookController::class);
+    // Route::resource('/books/{book}/customers', CustomerController::class);
+    // Route::resource('/books/{book}/customers/{customer}/entries', EntryController::class);
 });
 
 require_once __DIR__ . '/jetstream.php';

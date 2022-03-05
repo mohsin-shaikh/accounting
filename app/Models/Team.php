@@ -43,7 +43,9 @@ class Team extends JetstreamTeam
         'deleted' => TeamDeleted::class,
     ];
 
-
+    /**
+     * Generate uuid for the team.
+     */
     public static function booted()
     {
         static::creating(function ($team) {
