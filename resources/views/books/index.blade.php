@@ -4,9 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Books') }}
             </h2>
-            <x-link-as-button.primary href="{{ route('books.create') }}">
+            <x-link-button-primary href="{{ route('books.create') }}">
                 {{ __('Create Book') }}
-            </x-link-as-button.primary>
+            </x-link-button-primary>
         </div>
     </x-slot>
 
