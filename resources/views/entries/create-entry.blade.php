@@ -7,9 +7,9 @@
         <div class="flex items-center justify-start px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
             <div class="flex space-x-2">
                 <x-jet-button>
-                    {{ __('Update') }}
+                    {{ __('Create') }}
                 </x-jet-button>
-                <x-link-button-secondary href="{{ route('customers.index') }}">
+                <x-link-button-secondary href="{{ route('customers.show', $customer->uuid) }}">
                     {{ __('Cancel') }}
                 </x-link-button-secondary>
             </div>

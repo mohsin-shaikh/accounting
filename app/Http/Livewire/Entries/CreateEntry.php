@@ -3,18 +3,19 @@
 namespace App\Http\Livewire\Entries;
 
 use App\Models\Entry;
-use App\Models\User;
 use Filament\Forms;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 
 class CreateEntry extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
 
-    public function mount(): void
+    public $customer;
+
+    public function mount($customer): void
     {
+        $this->customer = $customer;
         $this->form->fill();
     }
 
@@ -29,15 +30,25 @@ class CreateEntry extends Component implements Forms\Contracts\HasForms
                 'xl' => 6,
                 '2xl' => 8,
             ])->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('amount')
                     ->required()
                     ->columnSpan([
                         'sm' => 2,
                         'xl' => 3,
                         '2xl' => 4,
                     ]),
-                Forms\Components\TextInput::make('mobile')
+                Forms\Components\TextInput::make('details')
                     ->required()
+                    ->columnSpan([
+                        'sm' => 2,
+                        'xl' => 3,
+                        '2xl' => 4,
+                    ]),
+                Forms\Components\Select::make('type')
+                    ->options([
+                        'in' => 'In',
+                        'out' => 'Out',
+                    ])
                     ->columnSpan([
                         'sm' => 2,
                         'xl' => 3,
@@ -49,9 +60,9 @@ class CreateEntry extends Component implements Forms\Contracts\HasForms
 
     public function submit(): void
     {
-        $customer = new Entry($this->form->getState());
-        $customer->book_id = Auth::user()->currentTeam->id;
-        $customer->save();
+        $entry = new Entry($this->form->getState());
+        $this->customer->entries()->save($entry);
+        $this->customer->save();
     }
 
     public function render(): View

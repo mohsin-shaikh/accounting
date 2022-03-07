@@ -27,16 +27,22 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 // Middleware
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
     // Customers...
     Route::resource('/customers', CustomerController::class, [
         'except' => ['store', 'update', 'destroy']
     ])->parameters([
         'customers' => 'uuid'
     ]);
+
     // Entries...
     Route::resource('/customers/{customer}/entries', EntryController::class, [
-        'except' => ['store', 'update', 'destroy']
+        'except' => ['store', 'update', 'destroy', 'show']
+    ])->parameters([
+        'customers' => 'uuid',
+        'entries' => 'uuid'
     ]);
+
 });
 
 require_once __DIR__ . '/jetstream.php';

@@ -5,23 +5,24 @@ namespace App\Http\Livewire\Entries;
 use Filament\Forms;
 use App\Models\Entry;
 use Livewire\Component;
+use App\Models\Customer;
 use Illuminate\Contracts\View\View;
 
 class EditEntry extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
 
-    public Entry $customer;
+    public Entry $entry;
+    public Customer $customer;
 
-    public $name;
-    public $mobile;
-
-    public function mount($customer): void
+    public function mount($customer, $entry): void
     {
         $this->customer = $customer;
+        $this->entry    = $entry;
         $this->form->fill([
-            'name' => $this->customer->name,
-            'mobile' => $this->customer->mobile,
+            'amount'    => $this->entry->amount,
+            'details'   => $this->entry->details,
+            'type'      => $this->entry->type,
         ]);
     }
 
@@ -36,15 +37,26 @@ class EditEntry extends Component implements Forms\Contracts\HasForms
                 'xl' => 6,
                 '2xl' => 8,
             ])->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('amount')
                     ->required()
                     ->columnSpan([
                         'sm' => 2,
                         'xl' => 3,
                         '2xl' => 4,
                     ]),
-                Forms\Components\TextInput::make('mobile')
+                Forms\Components\TextInput::make('details')
                     ->required()
+                    ->columnSpan([
+                        'sm' => 2,
+                        'xl' => 3,
+                        '2xl' => 4,
+                    ]),
+                Forms\Components\Select::make('type')
+                    ->required()
+                    ->options([
+                        'in' => 'In',
+                        'out' => 'Out',
+                    ])
                     ->columnSpan([
                         'sm' => 2,
                         'xl' => 3,
@@ -56,12 +68,12 @@ class EditEntry extends Component implements Forms\Contracts\HasForms
 
     protected function getFormModel(): Entry
     {
-        return $this->customer;
+        return $this->entry;
     }
 
     public function submit(): void
     {
-        $this->customer->update($this->form->getState());
+        $this->entry->update($this->form->getState());
     }
 
     public function render(): View

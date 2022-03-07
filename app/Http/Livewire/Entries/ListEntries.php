@@ -17,6 +17,13 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
+    public $customer;
+
+    public function mount($customer)
+    {
+        $this->customer = $customer;
+    }
+
     protected $queryString = [
         'tableFilters',
         'tableSortColumn',
@@ -32,8 +39,9 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('name'),
-            Tables\Columns\TextColumn::make('mobile'),
+            Tables\Columns\TextColumn::make('amount'),
+            Tables\Columns\TextColumn::make('details'),
+            Tables\Columns\TextColumn::make('type'),
             Tables\Columns\TextColumn::make('created_at')->dateTime(),
             Tables\Columns\TextColumn::make('updated_at')->dateTime(),
         ];
@@ -42,16 +50,20 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
     // Clickable Table Row
     protected function getTableRecordUrlUsing(): Closure
     {
-        return fn (Model $record): string => route('customers.show', ['customer' => $record]);
+        return fn (Model $record): string => route('entries.edit', [
+            $record->customer->uuid,
+            $record->uuid
+        ]);
     }
 
     protected function getTableActions(): array
     {
         return [
-            LinkAction::make('view')
-                ->url(fn (Entry $record): string => route('customers.show', $record)),
             LinkAction::make('edit')
-                ->url(fn (Entry $record): string => route('customers.edit', $record)),
+                ->url(fn (Entry $record): string => route('entries.edit', [
+                    $record->customer->uuid,
+                    $record->uuid
+                ])),
         ];
     }
 
