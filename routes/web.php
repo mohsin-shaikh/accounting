@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Customers...
     Route::resource('/customers', CustomerController::class, [
         'except' => ['store', 'update', 'destroy']
+    ])->parameters([
+        'customers' => 'uuid'
     ]);
     // Entries...
     Route::resource('/customers/{customer}/entries', EntryController::class, [

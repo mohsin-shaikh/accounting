@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Customers;
+namespace App\Http\Livewire\Entries;
 
 use Closure;
+use App\Models\Entry;
 use Filament\Tables;
 use Livewire\Component;
-use App\Models\Customer;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Tables\Actions\BulkAction;
@@ -13,7 +13,7 @@ use Filament\Tables\Actions\LinkAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class ListCustomers extends Component implements Tables\Contracts\HasTable
+class ListEntries extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
@@ -26,7 +26,7 @@ class ListCustomers extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Customer::query();
+        return Entry::query();
     }
 
     protected function getTableColumns(): array
@@ -42,16 +42,16 @@ class ListCustomers extends Component implements Tables\Contracts\HasTable
     // Clickable Table Row
     protected function getTableRecordUrlUsing(): Closure
     {
-        return fn (Model $record): string => route('customers.show', $record->uuid);
+        return fn (Model $record): string => route('customers.show', ['customer' => $record]);
     }
 
     protected function getTableActions(): array
     {
         return [
             LinkAction::make('view')
-                ->url(fn (Customer $record): string => route('customers.show', $record->uuid)),
+                ->url(fn (Entry $record): string => route('customers.show', $record)),
             LinkAction::make('edit')
-                ->url(fn (Customer $record): string => route('customers.edit', $record->uuid)),
+                ->url(fn (Entry $record): string => route('customers.edit', $record)),
         ];
     }
 
@@ -75,7 +75,7 @@ class ListCustomers extends Component implements Tables\Contracts\HasTable
     protected function applySearchToTableQuery(Builder $query): Builder
     {
         if (filled($searchQuery = $this->getTableSearchQuery())) {
-            $query->whereIn('id', Customer::search($searchQuery)->keys());
+            $query->whereIn('id', Entry::search($searchQuery)->keys());
         }
 
         return $query;
@@ -83,6 +83,6 @@ class ListCustomers extends Component implements Tables\Contracts\HasTable
 
     public function render(): View
     {
-        return view('customers.list-customers');
+        return view('entries.list-entries');
     }
 }

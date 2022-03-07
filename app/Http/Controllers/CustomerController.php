@@ -58,10 +58,11 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    // public function show(Customer $customer)
-    // {
-    //     return new CustomersResource($customer);
-    // }
+    public function show(string $uuid)
+    {
+        $customer = Customer::where('uuid', $uuid)->first();
+        return view('customers.show', compact('customer'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -69,8 +70,9 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit(string $uuid)
     {
+        $customer = Customer::where('uuid', $uuid)->first();
         return view('customers.edit', compact('customer'));
     }
 

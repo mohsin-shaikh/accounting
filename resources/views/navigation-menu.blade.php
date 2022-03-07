@@ -15,15 +15,9 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    {{-- <x-jet-nav-link href="{{ route('books.index') }}" :active="request()->routeIs('books.*')">
-                        {{ __('Books') }}
-                    </x-jet-nav-link> --}}
-                    {{-- <x-jet-nav-link href="{{ route('customers.index') }}" :active="request()->routeIs('customers.index')">
+                    <x-jet-nav-link href="{{ route('customers.index') }}" :active="request()->routeIs('customers.*')">
                         {{ __('Customers') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('entries.index') }}" :active="request()->routeIs('entries.index')">
-                        {{ __('Entries') }}
-                    </x-jet-nav-link> --}}
                 </div>
             </div>
 
@@ -150,9 +144,9 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            {{-- <x-jet-responsive-nav-link href="{{ route('books.index') }}" :active="request()->routeIs('books.index')">
-                {{ __('Books') }}
-            </x-jet-responsive-nav-link> --}}
+            <x-jet-responsive-nav-link href="{{ route('customers.index') }}" :active="request()->routeIs('customers.*')">
+                {{ __('Customers') }}
+            </x-jet-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
