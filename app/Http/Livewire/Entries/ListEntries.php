@@ -39,11 +39,18 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('amount'),
+            Tables\Columns\TextColumn::make('amount_in')
+                ->label('You Got')
+                ->getStateUsing(fn ($record) => $record->type == 'in' ? $record->amount:null),
+            Tables\Columns\TextColumn::make('amount_out')
+                ->label('You Gave')
+                ->getStateUsing(fn ($record) => $record->type == 'out' ? $record->amount:null),
             Tables\Columns\TextColumn::make('details'),
-            Tables\Columns\TextColumn::make('type'),
-            Tables\Columns\TextColumn::make('created_at')->dateTime(),
-            Tables\Columns\TextColumn::make('updated_at')->dateTime(),
+            // Tables\Columns\TextColumn::make('type'),
+            // Tables\Columns\TextColumn::make('created_at')->dateTime(),
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->label('Last Updated'),
         ];
     }
 

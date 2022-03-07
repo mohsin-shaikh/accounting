@@ -51,17 +51,6 @@ class EditEntry extends Component implements Forms\Contracts\HasForms
                         'xl' => 3,
                         '2xl' => 4,
                     ]),
-                Forms\Components\Select::make('type')
-                    ->required()
-                    ->options([
-                        'in' => 'In',
-                        'out' => 'Out',
-                    ])
-                    ->columnSpan([
-                        'sm' => 2,
-                        'xl' => 3,
-                        '2xl' => 4,
-                    ]),
             ]),
         ];
     }

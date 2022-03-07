@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Entries;
 
-use App\Models\Entry;
 use Filament\Forms;
+use App\Models\Entry;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 
@@ -12,11 +12,16 @@ class CreateEntry extends Component implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
 
     public $customer;
+    public $type;
+
+    protected $queryString = ['type'];
 
     public function mount($customer): void
     {
         $this->customer = $customer;
-        $this->form->fill();
+        $this->form->fill([
+            'type' => $this->type,
+        ]);
     }
 
     protected function getFormSchema(): array
@@ -39,16 +44,6 @@ class CreateEntry extends Component implements Forms\Contracts\HasForms
                     ]),
                 Forms\Components\TextInput::make('details')
                     ->required()
-                    ->columnSpan([
-                        'sm' => 2,
-                        'xl' => 3,
-                        '2xl' => 4,
-                    ]),
-                Forms\Components\Select::make('type')
-                    ->options([
-                        'in' => 'In',
-                        'out' => 'Out',
-                    ])
                     ->columnSpan([
                         'sm' => 2,
                         'xl' => 3,
