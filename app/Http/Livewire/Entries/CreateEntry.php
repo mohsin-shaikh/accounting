@@ -49,6 +49,13 @@ class CreateEntry extends Component implements Forms\Contracts\HasForms
                         'xl' => 3,
                         '2xl' => 4,
                     ]),
+                Forms\Components\DatePicker::make('date')
+                    ->required()
+                    ->columnSpan([
+                        'sm' => 2,
+                        'xl' => 3,
+                        '2xl' => 4,
+                    ]),
             ]),
         ];
     }

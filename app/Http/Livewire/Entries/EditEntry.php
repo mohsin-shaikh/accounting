@@ -23,6 +23,7 @@ class EditEntry extends Component implements Forms\Contracts\HasForms
             'amount'    => $this->entry->amount,
             'details'   => $this->entry->details,
             'type'      => $this->entry->type,
+            'date'      => $this->entry->date,
         ]);
     }
 
@@ -45,6 +46,13 @@ class EditEntry extends Component implements Forms\Contracts\HasForms
                         '2xl' => 4,
                     ]),
                 Forms\Components\TextInput::make('details')
+                    ->required()
+                    ->columnSpan([
+                        'sm' => 2,
+                        'xl' => 3,
+                        '2xl' => 4,
+                    ]),
+                Forms\Components\DatePicker::make('date')
                     ->required()
                     ->columnSpan([
                         'sm' => 2,

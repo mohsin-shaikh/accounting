@@ -12,7 +12,7 @@ class Entry extends Model
 {
     use HasFactory, Searchable;
 
-    protected $fillable = ['amount', 'details', 'type', 'customer_id'];
+    protected $fillable = ['amount', 'details', 'type', 'customer_id', 'date'];
 
     public function customer(): BelongsTo
     {
