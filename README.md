@@ -32,6 +32,13 @@ php artisan serve
 
 
 ## Usage
+- Register your self
+- Personal Book will be created automatically
+- You can create multiple accounting books
+- You can switch between them
+- You can add customer to the accounting book
+- You can add transactions to the accounting book
+- You can view the transactions of the accounting book
 
 
 ## TODO
