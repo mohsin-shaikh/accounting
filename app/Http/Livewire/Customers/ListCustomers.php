@@ -8,8 +8,10 @@ use Livewire\Component;
 use App\Models\Customer;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\LinkAction;
+use Filament\Tables\Actions\ButtonAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -32,10 +34,14 @@ class ListCustomers extends Component implements Tables\Contracts\HasTable
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('name'),
-            Tables\Columns\TextColumn::make('mobile'),
-            Tables\Columns\TextColumn::make('created_at')->dateTime(),
-            Tables\Columns\TextColumn::make('updated_at')->dateTime(),
+            TextColumn::make('name'),
+            TextColumn::make('mobile'),
+            TextColumn::make('total')
+                ->label('You Gave / You Got')
+                ->getStateUsing(fn ($record) => $record->type == 'in' ? $record->amount:null),
+            TextColumn::make('updated_at')
+                ->label('Last Updated')
+                ->dateTime(),
         ];
     }
 
@@ -48,9 +54,19 @@ class ListCustomers extends Component implements Tables\Contracts\HasTable
     protected function getTableActions(): array
     {
         return [
+            ButtonAction::make('you_gave')
+                ->label('You Gave')
+                ->color('danger')
+                ->url(fn (Customer $record): string => route('entries.create', $record->uuid)."?type=out"),
+            ButtonAction::make('you_got')
+                ->label('You Got')
+                ->color('success')
+                ->url(fn (Customer $record): string => route('entries.create', $record->uuid)."?type=in"),
             LinkAction::make('view')
+                ->label('View Customer')
                 ->url(fn (Customer $record): string => route('customers.show', $record->uuid)),
             LinkAction::make('edit')
+                ->label('Edit Customer')
                 ->url(fn (Customer $record): string => route('customers.edit', $record->uuid)),
         ];
     }

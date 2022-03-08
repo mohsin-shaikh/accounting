@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Customers') }}
+                {{ __('Customers List') }}
             </h2>
             <x-link-button-primary href="{{ route('customers.create') }}">
-                {{ __('Add New Customer') }}
+                {{ __('Add Customer') }}
             </x-link-button-primary>
         </div>
     </x-slot>

@@ -47,7 +47,6 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(fn ($record) => $record->type == 'out' ? $record->amount:null),
             Tables\Columns\TextColumn::make('details'),
             // Tables\Columns\TextColumn::make('type'),
-            // Tables\Columns\TextColumn::make('created_at')->dateTime(),
             Tables\Columns\TextColumn::make('updated_at')
                 ->dateTime()
                 ->label('Last Updated'),
@@ -67,6 +66,7 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
     {
         return [
             LinkAction::make('edit')
+                ->label('Edit Entry')
                 ->url(fn (Entry $record): string => route('entries.edit', [
                     $record->customer->uuid,
                     $record->uuid
