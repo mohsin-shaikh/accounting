@@ -6,14 +6,30 @@ You can create multiple accounting books and switch between them. You can add cu
 
 
 ## Installation
+Clone the repository and run the following command:
+```ssh
 git clone https://github.com/mohsin-shaikh/accounting.git
 cd accounting
+```
+Install Composer dependencies:
+```ssh
 composer install
+```
+Run the following command to create the database:
+```ssh
 php artisan key:generate
 php artisan migrate
+```
+Install npm dependencies:
+```ssh
 npm install
 npm run dev
+```
+Run Server:
+```ssh
 php artisan serve
+```
+
 
 ## Usage
 
